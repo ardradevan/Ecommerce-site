@@ -21,7 +21,8 @@ def collectionsview(request,slug):
     else:
         messages.warning(request,"No such category found")
         return redirect('collections')
-    
+
+#view products
 def productview(request,cate_slug,prod_slug):
     if(Category.objects.filter(slug=cate_slug,status=0)):
         if(Product.objects.filter(slug=prod_slug,status=0)):

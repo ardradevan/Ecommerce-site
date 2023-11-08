@@ -22,7 +22,41 @@
       <link href="{% static 'css/style.css' %}" rel="stylesheet" />
       <!-- responsive style -->
       <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
-      
+      <style>
+         a{
+            text-decoration: none;
+         }
+         .product-viewtag{
+            background-color: red;
+            color:#fff;
+            font-size: 11px;
+            line-height: 1;
+            position: absolute;
+            text-align: center;
+            text-transform: uppercase;
+            top: 22px;
+            margin-left: 17.5rem;
+            padding: 7px 10px;
+            font-weight: 600;
+            min-width: 45px;
+         
+         }
+         .trending_tag{
+            background-color: red;
+            color:#fff;
+            font-size: 11px;
+            line-height: 1;
+            position: absolute;
+            text-align: center;
+            text-transform: uppercase;
+            top: 22px;
+            margin-left: 17.5rem;
+            padding: 7px 10px;
+            font-weight: 600;
+            min-width: 45px;
+         
+         }
+      </style>
    </head>
    <body>
       <div class="hero_area">
@@ -38,19 +72,13 @@
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
                      <ul class="navbar-nav">
                         {% block home %} 
-                        <li class="nav-item active">
+                        
                             {% endblock %}
                            <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
                         </li>
-                       <li class="nav-item dropdown">
-                           <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Pages <span class="caret"></span></a>
-                           <ul class="dropdown-menu">
-                              <li><a href="about.html">About</a></li>
-                              <li><a href="testimonial.html">Testimonial</a></li>
-                           </ul>
-                        </li>
+                       
                         {% block product %} 
-                        <li class="nav-item">
+               
                             {% endblock %}
                            <a class="nav-link" href="{% url 'products' %}">Products</a>
                         </li>

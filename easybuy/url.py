@@ -8,7 +8,7 @@ urlpatterns = [
     path('',views.index,name="index"),
     path('product/',views.collections,name='products'),
     path('product/<str:slug>',views.collectionsview,name='collections'),
-    path('product/<str:cate_slug>/<str:prod_slug',views.productview,name='productview')
+    path('product/<str:cate_slug>/<str:prod_slug>',views.productview,name='productview')
    
 ]
 if settings.DEBUG:
