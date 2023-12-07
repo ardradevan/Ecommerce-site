@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from .models import *
 
@@ -37,3 +37,9 @@ def productview(request,cate_slug,prod_slug):
           messages.error(request,"No such category found")
           return redirect('collections') 
     return render(request,'pro_view.html',context)
+
+def productListAjax(request):
+    products=Product.objects.filter(status=0).values_list('name',flat=True)
+    productsList=list(products)
+    
+    return JsonResponse(productsList,safe=False)
