@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from .models import *
 
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def index(request):
     return render(request,"index.html")
@@ -43,3 +43,19 @@ def productListAjax(request):
     productsList=list(products)
     
     return JsonResponse(productsList,safe=False)
+
+def searchproduct(request):
+    if request.method == 'POST':
+        searchedterm=request.POST.get('productsearch')
+        if searchedterm == "":
+            return redirect(request.META.get('HTTP_REFERER'))
+        else:
+            product=Product.objects.filter(name__contains=searchedterm).first()
+            
+            if product:
+                return redirect('product/'+product.category.slug+'/'+product.slug)
+            else:
+                messages.info(request,"No product matched your search")
+                return redirect(request.META.get('HTTP_REFERER'))
+                
+    return redirect(request.META.get('HTTP_REFERER'))

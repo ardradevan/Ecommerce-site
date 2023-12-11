@@ -3,6 +3,9 @@ from django.http import HttpResponse,JsonResponse
 from django.shortcuts import redirect, render
 from easybuy.models import Product,Cart
 
+from django.contrib.auth.decorators import login_required
+
+
 def addtocart(request):
     if request.method == 'POST':
         if request.user.is_authenticated:
@@ -30,10 +33,13 @@ def addtocart(request):
     return redirect('/')
 
 def viewcart(request):
-    cart=Cart.objects.filter(user=request.user)
-    context={'cart':cart}
-    return render(request,"cart.html",context)
-
+    if request.user.is_authenticated:
+        cart=Cart.objects.filter(user=request.user)
+        context={'cart':cart}
+        return render(request,"cart.html",context)
+    else:
+        messages.success(request,"Login to continue")
+    return redirect('/')  
 def updatecart(request):
     if request.method == 'POST':
         prod_id=int(request.POST.get('product_id'))
@@ -49,7 +55,7 @@ def deletecartitem(request):
     if request.method =='POST':
         prod_id=int(request.POST.get('product_id'))
         if(Cart.objects.filter(user=request.user,product_id=prod_id)):
-            cartitem=Cart.objects.get(Product_id=prod_id,user=request.user)
+            cartitem=Cart.objects.get(product_id=prod_id,user=request.user)
             cartitem.delete()
         return JsonResponse({'status':"Deleted Successfully"})
     return redirect('/')

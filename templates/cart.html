@@ -52,12 +52,13 @@
                                     </div>
                                  </div>
                                 <div class="col-md-2 my-auto"> 
-                                    <button class="delete-cart-item"><li class="fa fa-trash"></li>Remove</button>
+                                    <button class="btn btn-danger delete-cart-item"><li class="fa fa-trash"></li>Remove</button>
                                 </div>
                             </div>
                             <br>
                             <br>
                         {% endfor %}
+                        <a href="{% url 'checkout' %}" class="btn btn-outline-success">checkout</a>
                     {% else %}
                         <h4>Your cart is empty</h4>
                     {% endif %}

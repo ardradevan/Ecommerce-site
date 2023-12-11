@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from django.shortcuts import redirect, render
 from easybuy.forms import CustomUserForm
 from django.contrib.auth import authenticate,login,logout
@@ -31,7 +31,8 @@ def loginpage(request):
                 messages.success(request,"Login successfully")
                 return redirect("/")
             else:
-                messages.error(request,"invalid Username or Password")
+                
+                # messages.success(request,"invalid Username or Password")
                 return redirect('/login')
         return render(request,"auth/login.html")
     

@@ -64,3 +64,28 @@ class Cart(models.Model):
     product=models.ForeignKey(Product, on_delete=models.CASCADE)
     product_qty=models.IntegerField(null=False,blank=False)
     created_at=models.DateField(auto_now_add=True)
+
+class Order(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    fname=models.CharField(max_length=150,null=False)
+    lname=models.CharField(max_length=150,null=False)
+    phone=models.CharField(max_length=150,null=False)
+    email=models.CharField(max_length=150,null=False)
+    total_price=models.FloatField(null=False)
+    orderstatus=(('pending','pending'),('completed','completed'),)
+    status= models.CharField(max_length=150,choices=orderstatus,default='pending')
+    message=models.TextField(null=True)
+    updated_at=models.DateField(auto_now=True)
+    created_at=models.DateField(auto_now_add=True)
+    
+    def __str__(self):
+        return f'{self.id} - {self.fname} {self.lname}'
+        
+class OrderItem(models.Model):
+    order=models.ForeignKey(Order,on_delete=models.CASCADE)
+    product=models.ForeignKey(Product, on_delete=models.CASCADE) 
+    price=models.FloatField(null=False)
+    quantity=models.IntegerField(null=False)
+    
+    def __str__(self):
+            return '{}'.format(self.order.id)
